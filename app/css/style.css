@@ -1618,7 +1618,6 @@ border-bottom-left-radius: inherit;
 }
 
 #index li.thermostat div.controls {
-  float: right;
   max-width: 100%;
   margin: 0;
   overflow: hidden;
@@ -1649,13 +1648,13 @@ border-bottom-left-radius: inherit;
   padding-left: 2.5em;
 }
 
-#index li.thermostat .valve-position{
+#index li.thermostat .valve-position {
   display: inline-block;
   margin: 0;
   padding: 0;
   width: 6px;
-  line-height: 30px;
-  height: 30px;
+  line-height: 35px;
+  height: 35px;
   background: #C7C7C7;
   margin: 5px 0px;
   border-radius: 2px;
