@@ -14,7 +14,10 @@ module.exports = (env) ->
   S = env.require 'string'
   M = env.matcher
 
-  global.i18n = env.require('i18n')
+  try
+    global.i18n = env.require('i18n')
+  catch e
+    global.i18n = env.require('i18n-pimatic')
   global.__ = i18n.__
   _ = env.require 'lodash'
   crypto = require 'crypto'
@@ -50,7 +53,7 @@ module.exports = (env) ->
         error = req.body.error
         env.logger.error("Client error:", error.message)
         env.logger.debug JSON.stringify(error, null, "  ")
-        res.send 200
+        res.sendStatus 200
       )
 
       @app.get('/refresh', (req, res) =>
@@ -165,6 +168,7 @@ module.exports = (env) ->
           "pimatic-mobile-frontend/app/js/lazyload.js"
         ]
         base: [
+          "pimatic-mobile-frontend/app/js/es6-promise.js"
           "pimatic-mobile-frontend/app/js/tracekit.js"
           "pimatic-mobile-frontend/app/js/jquery-1.11.2.js"
           "pimatic-mobile-frontend/app/mobile-init.js"
@@ -179,9 +183,10 @@ module.exports = (env) ->
           "pimatic-mobile-frontend/app/js/owl.carousel.js"
           "pimatic-mobile-frontend/app/js/jquery.sparkline.js"
           "pimatic-mobile-frontend/app/js/jqm-spinbox.js"
+          "pimatic-mobile-frontend/app/js/timebox.js"
           "pimatic-mobile-frontend/app/js/jquery.autosize.input.js"
           "pimatic-mobile-frontend/app/js/human-format.js"
-          "pimatic-mobile-frontend/app/js/sweet-alert.js"
+          "pimatic-mobile-frontend/app/js/sweetalert2.js"
           "pimatic-mobile-frontend/app/js/headroom.js"
           "pimatic-mobile-frontend/app/js/inobounce.js"
           "pimatic-mobile-frontend/app/js/fastclick.js"
@@ -189,8 +194,8 @@ module.exports = (env) ->
         textcomplete: [
           "pimatic-mobile-frontend/app/js/jquery.textcomplete.js"
         ]
-        jsoneditor: [
-          "pimatic-mobile-frontend/app/js/jsoneditor-schema.js"
+        jsonschemaeditor: [
+          "pimatic-mobile-frontend/app/js/json-schema-editor.coffee"
         ]
         dygraph: [
           "pimatic-mobile-frontend/app/js/dygraph.js"
@@ -242,6 +247,9 @@ module.exports = (env) ->
         'edit-devicepage-page': [
           "pimatic-mobile-frontend/app/pages/edit-devicepage.coffee"
         ]
+        'edit-plugin-page': [
+          "pimatic-mobile-frontend/app/pages/edit-plugin.coffee"
+        ]
         'database-page': [
           "pimatic-mobile-frontend/app/pages/database.coffee"
         ]
@@ -288,7 +296,7 @@ module.exports = (env) ->
           "pimatic-mobile-frontend/app/css/jquery.mobile.datepicker.css"
           "pimatic-mobile-frontend/app/css/jquery.textcomplete.css"
           "pimatic-mobile-frontend/app/css/owl.carousel.css"
-          "pimatic-mobile-frontend/app/css/sweet-alert.css"
+          "pimatic-mobile-frontend/app/css/sweetalert2.css"
           "pimatic-mobile-frontend/app/css/mobiscroll.animation.css"
           "pimatic-mobile-frontend/app/css/mobiscroll.widget.css"
           "pimatic-mobile-frontend/app/css/mobiscroll.scroller.css"

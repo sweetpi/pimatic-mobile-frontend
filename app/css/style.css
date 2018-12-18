@@ -195,6 +195,10 @@ html body .ui-panel-dismiss {
   margin-bottom: -1px;
 }
 
+#index .timebox input {
+  min-width: 100px;
+}
+
 .ui-mobile .ui-page-theme-a .ui-li-divider {
   border: none;
   border-bottom: 2px solid #005994 /*{pm-listdivider-color}*/;
@@ -423,6 +427,24 @@ html, body.ui-mobile-viewport, div.ui-mobile-viewport {
   color: #000 /*{a-bup-color}*/;
 }
 
+#index .timebox input{
+  border: none;
+  background: none;
+  width: 36px;
+  min-width: 36px;
+  margin: 0;
+  margin-left: -8px;
+  margin-right: -8px;
+  padding: 0;
+  font-weight: bold;
+  color: #000 /*{a-bup-color}*/;
+  /* sorry about the non-standard
+  solution but Chrome messes otherwise*/
+  -webkit-margin-before: -3px;
+  -webkit-margin-after: -3px;
+  -webkit-min-logical-width: 90px;
+}
+
 
 /* rules-page */
 #rules span.if, #rules span.then {
@@ -501,8 +523,14 @@ html, body.ui-mobile-viewport, div.ui-mobile-viewport {
 .unlocked ul#rules li.sortable a,
 .unlocked ul#groups li.sortable a,
 .unlocked ul#devices li.sortable a,
-.unlocked ul#devicepages li.sortable a {
+.unlocked ul#devicepages li.sortable a,
+.json-schema-editor .elements li.sortable a {
   padding-left: 36px !important;
+}
+
+.json-schema-editor .elements,
+.json-schema-editor .elements > ul {
+  position: relative;
 }
 
 .unlocked ul.items li.sortable.header {
@@ -580,7 +608,7 @@ html.ui-mobile body .delete-link:hover {
     margin-right: 0px;
 }
 
-#li.sortable-placeholder{
+li.sortable-placeholder{
   border-style: dashed;
   border-width: 1px;
   background-color: #333 /*{a-page-color}*/;
@@ -903,8 +931,10 @@ table#database-attribute-info {
   border: none;
 }
 
-#plugin-list .active, #plugin-browse-list .active, #plugin-list .update-available, 
-#plugin-browse-list .installed{
+#plugin-list .activated, #plugin-browse-list .activated, #plugin-list .update-available,
+#plugin-list .compatibility-unknown,
+#plugin-browse-list .installed, #plugin-list .loaded, #plugin-browse-list .loaded,
+#plugin-browse-list .compatibility-unknown {
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
@@ -912,7 +942,8 @@ table#database-attribute-info {
   padding: 3px;
 }
 
-#plugin-list .active, #plugin-browse-list .active{
+#plugin-list .activated, #plugin-browse-list .activated,
+#plugin-list .loaded, #plugin-browse-list .loaded {
   background: #339900;
   color: white;
 }
@@ -925,6 +956,33 @@ table#database-attribute-info {
 #plugin-list .update-available{
   background: #FFCC00;
   color: white;
+}
+
+#plugin-list .compatibility-unknown,
+#plugin-browse-list .compatibility-unknown {
+  background: #7C7C7C;
+  color: white;
+}
+
+#plugin-list .version, #plugin-browse-list .version {
+  color: #7C7C7C;
+}
+
+#plugins-page .description {
+  font-size: 0.85em;
+  padding: 8px 0;
+}
+
+#plugins-page .buttons {
+  margin-left: -.446em;
+}
+
+.page-message {
+  margin-bottom: 15px;
+}
+
+.discover-messages {
+  margin-bottom: 25px;
 }
 
 .ui-simpledialog-controls{
@@ -1118,6 +1176,15 @@ li.with-button a.ui-btn {
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
+  }
+
+  html .short-labels .ui-field-contain > label + .ui-btn-inline {
+    width: auto;
+  }
+
+  html .short-labels .ui-field-contain .ui-flipswitch.ui-flipswitch-active, 
+  html .short-labels .ui-popup .ui-field-contain .ui-flipswitch.ui-flipswitch-active {
+    width: 1.875em;
   }
 
 }
@@ -1503,8 +1570,13 @@ border-bottom-left-radius: inherit;
   border-radius: 10px;
 }
 
+.process-message p {
+    margin: 0;
+}
+
 .attr-presence {
   display: inline-block;
+  float: right;
   border-radius: 20px;
   width: 14px;
   height: 14px;
@@ -1527,6 +1599,10 @@ border-bottom-left-radius: inherit;
 .ui-field-contain {
   border-bottom: none;
   padding-bottom: 3px;
+}
+
+span.attribute.attr-contact.attr-type-boolean {
+  float: right !important;
 }
 
 #tooltip, .dygraph-tooltip
@@ -1835,7 +1911,8 @@ border-bottom-left-radius: inherit;
 }
 
 .node-and > .node-and, .node-or > .node-or, 
-#rule-condition-gui > .node-and, #rule-condition-gui > .node-or{
+#rule-condition-gui > .node-and, #rule-condition-gui > .node-or,
+#rule-condition-gui > .node-andIf, #rule-condition-gui > .node-orWhen{
   padding: 0;
   border: none;
 }
@@ -1948,11 +2025,121 @@ border-bottom-left-radius: inherit;
   font-size: 14px;
 }
 
-.ui-field-contain .description {
+.json-schema-editor .description {
   clear: both;
   padding-top: 8px;
   font-style: italic;
   color: gray;
+}
+
+.json-schema-editor h3 {
+  margin-bottom: 5px;
+}
+
+.json-schema-editor .elements {
+  padding-left: 5px;
+}
+
+.json-schema-editor .elements > ul {
+  margin-top: 7px;
+}
+
+.json-schema-editor .properties {
+  position: relative;
+}
+
+.json-schema-editor .properties label.ui-checkbox input{
+  left: 0;
+}
+
+.json-schema-editor .properties label.ui-checkbox span{
+  padding-left: 28px;
+}
+
+.json-schema-editor .properties > .properties {
+  padding-left: 20px;
+  margin-left: -10px;
+  border-left: 5px solid #ddd /*{a-body-border}*/;
+  margin-top: -33px;
+  padding-top: 22px;
+  padding-right: 10px;
+  border-radius: 5px;
+  margin-bottom: 25px;
+}
+
+.json-schema-editor .properties  h3 {
+  padding: 0 5px;
+}
+
+.json-schema-editor .add-property > label{
+  font-weight: bold;
+}
+
+.json-schema-editor .add-property-name {
+  width: 32%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.json-schema-editor .add-property-fields {
+  margin-top: -8px;
+}
+
+
+
+.json-schema-editor .remove-property {
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin: 5px;
+  margin-left: 0;
+}
+
+.json-schema-editor .properties > .remove-property {
+  left: 10px;
+  top: -4px;
+}
+
+.json-schema-editor .isExtra > label {
+  padding-left: 40px;
+  box-sizing: border-box;
+}
+
+.json-schema-editor h3.isExtra  {
+  padding-left: 45px;
+}
+
+.ui-field-contain .notset, .default {
+  display: inline-block;
+  font-style: italic;
+  position: absolute;
+  top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  right: 10px;
+}
+
+@media (min-width: 28em) {
+
+  #edit-rule-form label[for='edit-rule-condition'],
+  #edit-rule-form label[for='edit-rule-actions'] {
+    float: none;
+  }
+
+
+  .json-schema-editor  .ui-field-contain > label,
+  .json-schema-editor  .ui-field-contain .ui-controlgroup-label,
+  .json-schema-editor  .ui-field-contain > .ui-rangeslider > label {
+    width: 32%;
+  }
+
+  .json-schema-editor  .ui-field-contain > label ~ [class*="ui-"],
+  .json-schema-editor  .ui-field-contain .ui-controlgroup-controls {
+    float: left;
+    width: 66%;
+  }
+
+
 }
 
 .ui-listview > .ui-li-divider.collapsible,
